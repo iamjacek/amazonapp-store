@@ -16,7 +16,7 @@ productRouter.get(
 productRouter.get(
   "/seed",
   expressAsyncHandler(async (req, res) => {
-    //await Product.remove({})
+    // await Product.remove({});
     const createdProducts = await Product.insertMany(data.products)
     res.send({ createdProducts })
   })
@@ -29,7 +29,7 @@ productRouter.get(
     if (product) {
       res.send(product)
     } else {
-      res.status(404).send({ messgae: "Product not found" })
+      res.status(404).send({ message: "Product Not Found" })
     }
   })
 )
