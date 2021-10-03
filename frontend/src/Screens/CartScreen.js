@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { addToCart, removerFromCart } from "../actions/cartActions"
+import { addToCart, removeFromCart } from "../actions/cartActions"
 import MessageBox from "../components/MessageBox"
 
 export default function CartScreen(props) {
@@ -17,9 +17,12 @@ export default function CartScreen(props) {
       dispatch(addToCart(productId, qty))
     }
   }, [dispatch, productId, qty])
+
   const removeFromCartHandler = (id) => {
-    dispatch(removerFromCart(id))
+    // delete action
+    dispatch(removeFromCart(id))
   }
+
   const checkoutHandler = () => {
     props.history.push("/signin?redirect=shipping")
   }
@@ -37,7 +40,11 @@ export default function CartScreen(props) {
               <li key={item.product}>
                 <div className="row">
                   <div>
-                    <img src={item.image} alt={item.name} className="small" />
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="small"
+                    ></img>
                   </div>
                   <div className="min-30">
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
@@ -78,7 +85,7 @@ export default function CartScreen(props) {
           <ul>
             <li>
               <h2>
-                Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items): $
+                Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items) : $
                 {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
               </h2>
             </li>

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { createProduct, listProducts } from "../actions/productActions"
-import Loading from "../components/Loading"
+import LoadingBox from "../components/LoadingBox"
 import MessageBox from "../components/MessageBox"
 import { PRODUCT_CREATE_RESET } from "../constants/productConstants"
 
@@ -23,8 +23,10 @@ export default function ProductListScreen(props) {
       props.history.push(`/product/${createdProduct._id}/edit`)
     }
     dispatch(listProducts())
-  }, [dispatch, createdProduct, props.history, successCreate])
-  const deleteHandler = () => {}
+  }, [createdProduct, dispatch, props.history, successCreate])
+  const deleteHandler = () => {
+    /// TODO: dispatch delete action
+  }
   const createHandler = () => {
     dispatch(createProduct())
   }
@@ -36,10 +38,10 @@ export default function ProductListScreen(props) {
           Create Product
         </button>
       </div>
-      {loadingCreate && <Loading />}
+      {loadingCreate && <LoadingBox></LoadingBox>}
       {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
       {loading ? (
-        <Loading />
+        <LoadingBox></LoadingBox>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
@@ -59,7 +61,7 @@ export default function ProductListScreen(props) {
               <tr key={product._id}>
                 <td>{product._id}</td>
                 <td>{product.name}</td>
-                <td>{product.price.toFixed(2)}</td>
+                <td>{product.price}</td>
                 <td>{product.category}</td>
                 <td>{product.brand}</td>
                 <td>

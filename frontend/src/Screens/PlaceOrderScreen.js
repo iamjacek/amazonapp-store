@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { createOrder } from "../actions/orderActions"
 import CheckoutSteps from "../components/CheckoutSteps"
 import { ORDER_CREATE_RESET } from "../constants/orderConstants"
-import Loading from "../components/Loading"
+import LoadingBox from "../components/LoadingBox"
 import MessageBox from "../components/MessageBox"
 
 export default function PlaceOrderScreen(props) {
@@ -14,14 +14,13 @@ export default function PlaceOrderScreen(props) {
   }
   const orderCreate = useSelector((state) => state.orderCreate)
   const { loading, success, error, order } = orderCreate
-  const toPrice = (num) => Number(num.toFixed(2))
+  const toPrice = (num) => Number(num.toFixed(2)) // 5.123 => "5.12" => 5.12
   cart.itemsPrice = toPrice(
     cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
   )
   cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10)
-  cart.taxPrice = toPrice(0.2 * cart.itemsPrice)
+  cart.taxPrice = toPrice(0.15 * cart.itemsPrice)
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice
-
   const dispatch = useDispatch()
   const placeOrderHandler = () => {
     dispatch(createOrder({ ...cart, orderItems: cart.cartItems }))
@@ -31,10 +30,10 @@ export default function PlaceOrderScreen(props) {
       props.history.push(`/order/${order._id}`)
       dispatch({ type: ORDER_CREATE_RESET })
     }
-  }, [success, dispatch, order, props.history])
+  }, [dispatch, order, props.history, success])
   return (
     <div>
-      <CheckoutSteps step1 step2 step3 step4 />
+      <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
       <div className="row top">
         <div className="col-2">
           <ul>
@@ -42,11 +41,10 @@ export default function PlaceOrderScreen(props) {
               <div className="card card-body">
                 <h2>Shipping</h2>
                 <p>
-                  <strong>Name: </strong> {cart.shippingAddress.fullName}
-                  <br />
-                  <strong>Address: </strong> {cart.shippingAddress.address},{" "}
-                  {cart.shippingAddress.postCode},{" "}
-                  {cart.shippingAddress.country}
+                  <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
+                  <strong>Address: </strong> {cart.shippingAddress.address},
+                  {cart.shippingAddress.city}, {cart.shippingAddress.postalCode}
+                  ,{cart.shippingAddress.country}
                 </p>
               </div>
             </li>
@@ -54,7 +52,7 @@ export default function PlaceOrderScreen(props) {
               <div className="card card-body">
                 <h2>Payment</h2>
                 <p>
-                  <strong>Method: </strong> {cart.paymentMethod}
+                  <strong>Method:</strong> {cart.paymentMethod}
                 </p>
               </div>
             </li>
@@ -70,7 +68,7 @@ export default function PlaceOrderScreen(props) {
                             src={item.image}
                             alt={item.name}
                             className="small"
-                          />
+                          ></img>
                         </div>
                         <div className="min-30">
                           <Link to={`/product/${item.product}`}>
@@ -116,7 +114,7 @@ export default function PlaceOrderScreen(props) {
               <li>
                 <div className="row">
                   <div>
-                    <strong>Total</strong>
+                    <strong> Order Total</strong>
                   </div>
                   <div>
                     <strong>${cart.totalPrice.toFixed(2)}</strong>
@@ -126,15 +124,14 @@ export default function PlaceOrderScreen(props) {
               <li>
                 <button
                   type="button"
-                  disabled={cart.cartItems === 0}
                   onClick={placeOrderHandler}
                   className="primary block"
+                  disabled={cart.cartItems.length === 0}
                 >
                   Place Order
                 </button>
               </li>
-              <br />
-              {loading && <Loading />}
+              {loading && <LoadingBox></LoadingBox>}
               {error && <MessageBox variant="danger">{error}</MessageBox>}
             </ul>
           </div>

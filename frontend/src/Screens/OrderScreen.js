@@ -1,10 +1,10 @@
 import Axios from "axios"
-import React, { useEffect, useState } from "react"
 import { PayPalButton } from "react-paypal-button-v2"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { detailsOrder, payOrder } from "../actions/orderActions"
-import Loading from "../components/Loading"
+import LoadingBox from "../components/LoadingBox"
 import MessageBox from "../components/MessageBox"
 import { ORDER_PAY_RESET } from "../constants/orderConstants"
 
@@ -13,10 +13,10 @@ export default function OrderScreen(props) {
   const [sdkReady, setSdkReady] = useState(false)
   const orderDetails = useSelector((state) => state.orderDetails)
   const { order, loading, error } = orderDetails
+
   const orderPay = useSelector((state) => state.orderPay)
   const { loading: loadingPay, error: errorPay, success: successPay } = orderPay
   const dispatch = useDispatch()
-
   useEffect(() => {
     const addPayPalScript = async () => {
       const { data } = await Axios.get("/api/config/paypal")
@@ -29,7 +29,6 @@ export default function OrderScreen(props) {
       }
       document.body.appendChild(script)
     }
-
     if (!order || successPay || (order && order._id !== orderId)) {
       dispatch({ type: ORDER_PAY_RESET })
       dispatch(detailsOrder(orderId))
@@ -42,14 +41,14 @@ export default function OrderScreen(props) {
         }
       }
     }
-  }, [dispatch, orderId, order, sdkReady, successPay])
+  }, [dispatch, order, orderId, sdkReady, successPay])
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order, paymentResult))
   }
 
   return loading ? (
-    <Loading></Loading>
+    <LoadingBox></LoadingBox>
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
@@ -62,15 +61,15 @@ export default function OrderScreen(props) {
               <div className="card card-body">
                 <h2>Shipping</h2>
                 <p>
-                  <strong>Name: </strong> {order.shippingAddress.fullName}
-                  <br />
-                  <strong>Address: </strong> {order.shippingAddress.address},{" "}
-                  {order.shippingAddress.postCode},{" "}
+                  <strong>Name:</strong> {order.shippingAddress.fullName} <br />
+                  <strong>Address: </strong> {order.shippingAddress.address},
+                  {order.shippingAddress.city},{" "}
+                  {order.shippingAddress.postalCode},
                   {order.shippingAddress.country}
                 </p>
                 {order.isDelivered ? (
                   <MessageBox variant="success">
-                    Delivered at {order.deliveryAt}
+                    Delivered at {order.deliveredAt}
                   </MessageBox>
                 ) : (
                   <MessageBox variant="danger">Not Delivered</MessageBox>
@@ -81,7 +80,7 @@ export default function OrderScreen(props) {
               <div className="card card-body">
                 <h2>Payment</h2>
                 <p>
-                  <strong>Method: </strong> {order.paymentMethod}
+                  <strong>Method:</strong> {order.paymentMethod}
                 </p>
                 {order.isPaid ? (
                   <MessageBox variant="success">
@@ -104,7 +103,7 @@ export default function OrderScreen(props) {
                             src={item.image}
                             alt={item.name}
                             className="small"
-                          />
+                          ></img>
                         </div>
                         <div className="min-30">
                           <Link to={`/product/${item.product}`}>
@@ -150,7 +149,7 @@ export default function OrderScreen(props) {
               <li>
                 <div className="row">
                   <div>
-                    <strong>Total</strong>
+                    <strong> Order Total</strong>
                   </div>
                   <div>
                     <strong>${order.totalPrice.toFixed(2)}</strong>
@@ -160,17 +159,18 @@ export default function OrderScreen(props) {
               {!order.isPaid && (
                 <li>
                   {!sdkReady ? (
-                    <Loading />
+                    <LoadingBox></LoadingBox>
                   ) : (
                     <>
                       {errorPay && (
                         <MessageBox variant="danger">{errorPay}</MessageBox>
                       )}
-                      {loadingPay && <Loading />}
+                      {loadingPay && <LoadingBox></LoadingBox>}
+
                       <PayPalButton
                         amount={order.totalPrice}
                         onSuccess={successPaymentHandler}
-                      />
+                      ></PayPalButton>
                     </>
                   )}
                 </li>

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { listOrderMine } from "../actions/orderActions"
-import Loading from "../components/Loading"
+import LoadingBox from "../components/LoadingBox"
 import MessageBox from "../components/MessageBox"
 
 export default function OrderHistoryScreen(props) {
@@ -15,7 +15,7 @@ export default function OrderHistoryScreen(props) {
     <div>
       <h1>Order History</h1>
       {loading ? (
-        <Loading />
+        <LoadingBox></LoadingBox>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import CheckoutSteps from "../components/CheckoutSteps"
 import { useDispatch, useSelector } from "react-redux"
 import { saveShippingAddress } from "../actions/cartActions"
+import CheckoutSteps from "../components/CheckoutSteps"
 
 export default function ShippingAddressScreen(props) {
   const userSignin = useSelector((state) => state.userSignin)
@@ -13,15 +13,14 @@ export default function ShippingAddressScreen(props) {
   }
   const [fullName, setFullName] = useState(shippingAddress.fullName)
   const [address, setAddress] = useState(shippingAddress.address)
-  const [postCode, setPostCode] = useState(shippingAddress.postCode)
   const [city, setCity] = useState(shippingAddress.city)
+  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
   const [country, setCountry] = useState(shippingAddress.country)
-
   const dispatch = useDispatch()
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(
-      saveShippingAddress({ fullName, address, city, postCode, country })
+      saveShippingAddress({ fullName, address, city, postalCode, country })
     )
     props.history.push("/payment")
   }
@@ -41,43 +40,43 @@ export default function ShippingAddressScreen(props) {
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             required
-          />
+          ></input>
         </div>
         <div>
-          <label htmlFor="fullName">Address</label>
+          <label htmlFor="address">Address</label>
           <input
             type="text"
             id="address"
-            placeholder="Enter shipping address"
+            placeholder="Enter address"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             required
-          />
+          ></input>
         </div>
         <div>
-          <label htmlFor="fullName">Post Code</label>
-          <input
-            type="text"
-            id="postCode"
-            placeholder="Enter post code"
-            value={postCode}
-            onChange={(e) => setPostCode(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="fullName">City</label>
+          <label htmlFor="city">City</label>
           <input
             type="text"
             id="city"
             placeholder="Enter city"
-            value={fullName}
+            value={city}
             onChange={(e) => setCity(e.target.value)}
             required
-          />
+          ></input>
         </div>
         <div>
-          <label htmlFor="fullName">Country</label>
+          <label htmlFor="postalCode">Postal Code</label>
+          <input
+            type="text"
+            id="postalCode"
+            placeholder="Enter postal code"
+            value={postalCode}
+            onChange={(e) => setPostalCode(e.target.value)}
+            required
+          ></input>
+        </div>
+        <div>
+          <label htmlFor="country">Country</label>
           <input
             type="text"
             id="country"
@@ -85,10 +84,10 @@ export default function ShippingAddressScreen(props) {
             value={country}
             onChange={(e) => setCountry(e.target.value)}
             required
-          />
+          ></input>
         </div>
         <div>
-          <label></label>
+          <label />
           <button className="primary" type="submit">
             Continue
           </button>
