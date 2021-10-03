@@ -1,35 +1,35 @@
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { createProduct, listProducts } from "../actions/productActions"
-import LoadingBox from "../components/LoadingBox"
-import MessageBox from "../components/MessageBox"
-import { PRODUCT_CREATE_RESET } from "../constants/productConstants"
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createProduct, listProducts } from '../actions/productActions';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 
 export default function ProductListScreen(props) {
-  const productList = useSelector((state) => state.productList)
-  const { loading, error, products } = productList
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, products } = productList;
 
-  const productCreate = useSelector((state) => state.productCreate)
+  const productCreate = useSelector((state) => state.productCreate);
   const {
     loading: loadingCreate,
     error: errorCreate,
     success: successCreate,
     product: createdProduct,
-  } = productCreate
-  const dispatch = useDispatch()
+  } = productCreate;
+  const dispatch = useDispatch();
   useEffect(() => {
     if (successCreate) {
-      dispatch({ type: PRODUCT_CREATE_RESET })
-      props.history.push(`/product/${createdProduct._id}/edit`)
+      dispatch({ type: PRODUCT_CREATE_RESET });
+      props.history.push(`/product/${createdProduct._id}/edit`);
     }
-    dispatch(listProducts())
-  }, [createdProduct, dispatch, props.history, successCreate])
+    dispatch(listProducts());
+  }, [createdProduct, dispatch, props.history, successCreate]);
   const deleteHandler = () => {
     /// TODO: dispatch delete action
-  }
+  };
   const createHandler = () => {
-    dispatch(createProduct())
-  }
+    dispatch(createProduct());
+  };
   return (
     <div>
       <div className="row">
@@ -88,5 +88,5 @@ export default function ProductListScreen(props) {
         </table>
       )}
     </div>
-  )
+  );
 }

@@ -18,9 +18,9 @@ body {
 .grid-container {
   display: grid;
   grid-template-areas:
-    "header"
-    "main"
-    "footer";
+    'header'
+    'main'
+    'footer';
   grid-template-columns: 1fr;
   grid-template-rows: 5rem 1fr 5rem;
   height: 100%;
@@ -132,6 +132,7 @@ a.brand {
 .min-30 {
   min-width: 30rem;
 }
+
 /* Image */
 img {
   border-radius: 0.5rem;
@@ -147,6 +148,7 @@ img.medium {
 img.large {
   width: 100%;
 }
+
 /* Card */
 .card {
   border: 0.1rem #c0c0c0 solid;
@@ -171,7 +173,7 @@ img.large {
 .rating span:last-child {
   color: #404040;
 }
-/*alert */
+/* Alert */
 .loading {
   display: block !important;
 }
@@ -195,10 +197,10 @@ img.large {
   background-color: #ffe0e0;
 }
 .alert-success {
-  color: #001135;
+  color: #20a020;
   background-color: #eeffe0;
 }
-/*FORM*/
+/* Form */
 .form {
   max-width: 60rem;
   margin: 0 auto;
@@ -211,11 +213,7 @@ img.large {
 .form label {
   margin: 1rem 0;
 }
-
-.form button {
-  margin-top: 2rem;
-}
-/* DROPDOWN */
+/* Dropdown */
 .dropdown {
   display: inline-block;
   position: relative;
@@ -235,7 +233,7 @@ img.large {
 .dropdown:hover .dropdown-content {
   display: block;
 }
-/* checkout steps */
+/* Checkout Steps */
 .checkout-steps > div {
   border-top: 0.3rem #c0c0c0 solid;
   color: #c0c0c0;
@@ -243,27 +241,22 @@ img.large {
   padding: 1rem;
   font-weight: bold;
 }
-
 .checkout-steps > div.active {
   border-top-color: #f08000;
   color: #f08000;
 }
-
-.div.active .checkout-steps {
-  border-top: 0.3rem #f08000 solid;
-}
-/* TABLE */
+/* Table */
 .table {
   width: 100%;
   border-collapse: collapse;
 }
 .table tbody tr:nth-of-type(odd) {
-  background-color: #f3f3f3;
+  background-color: #f4f4f4;
 }
 .table td,
 .table th {
   text-align: left;
-  border: 0.1rem solid #e9e9e9;
+  border: 0.1rem solid #e4e4e4;
   padding: 0.5rem;
 }
 .table button {

@@ -1,37 +1,37 @@
-import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
-import { register } from "../actions/userActions"
-import LoadingBox from "../components/LoadingBox"
-import MessageBox from "../components/MessageBox"
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { register } from '../actions/userActions';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 
 export default function RegisterScreen(props) {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/"
+    ? props.location.search.split('=')[1]
+    : '/';
 
-  const userRegister = useSelector((state) => state.userRegister)
-  const { userInfo, loading, error } = userRegister
+  const userRegister = useSelector((state) => state.userRegister);
+  const { userInfo, loading, error } = userRegister;
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Password and confirm password are not match")
+      alert('Password and confirm password are not match');
     } else {
-      dispatch(register(name, email, password))
+      dispatch(register(name, email, password));
     }
-  }
+  };
   useEffect(() => {
     if (userInfo) {
-      props.history.push(redirect)
+      props.history.push(redirect);
     }
-  }, [props.history, redirect, userInfo])
+  }, [props.history, redirect, userInfo]);
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
@@ -89,11 +89,11 @@ export default function RegisterScreen(props) {
         <div>
           <label />
           <div>
-            Already have an account?{" "}
+            Already have an account?{' '}
             <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
           </div>
         </div>
       </form>
     </div>
-  )
+  );
 }

@@ -1,29 +1,29 @@
-import React, { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { saveShippingAddress } from "../actions/cartActions"
-import CheckoutSteps from "../components/CheckoutSteps"
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveShippingAddress } from '../actions/cartActions';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 export default function ShippingAddressScreen(props) {
-  const userSignin = useSelector((state) => state.userSignin)
-  const { userInfo } = userSignin
-  const cart = useSelector((state) => state.cart)
-  const { shippingAddress } = cart
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const cart = useSelector((state) => state.cart);
+  const { shippingAddress } = cart;
   if (!userInfo) {
-    props.history.push("/signin")
+    props.history.push('/signin');
   }
-  const [fullName, setFullName] = useState(shippingAddress.fullName)
-  const [address, setAddress] = useState(shippingAddress.address)
-  const [city, setCity] = useState(shippingAddress.city)
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
-  const [country, setCountry] = useState(shippingAddress.country)
-  const dispatch = useDispatch()
+  const [fullName, setFullName] = useState(shippingAddress.fullName);
+  const [address, setAddress] = useState(shippingAddress.address);
+  const [city, setCity] = useState(shippingAddress.city);
+  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
+  const [country, setCountry] = useState(shippingAddress.country);
+  const dispatch = useDispatch();
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     dispatch(
       saveShippingAddress({ fullName, address, city, postalCode, country })
-    )
-    props.history.push("/payment")
-  }
+    );
+    props.history.push('/payment');
+  };
   return (
     <div>
       <CheckoutSteps step1 step2></CheckoutSteps>
@@ -94,5 +94,5 @@ export default function ShippingAddressScreen(props) {
         </div>
       </form>
     </div>
-  )
+  );
 }

@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
-import { detailsProduct } from "../actions/productActions"
-import LoadingBox from "../components/LoadingBox"
-import MessageBox from "../components/MessageBox"
-import Rating from "../components/Rating"
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { detailsProduct } from '../actions/productActions';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import Rating from '../components/Rating';
 
 export default function ProductScreen(props) {
-  const dispatch = useDispatch()
-  const productId = props.match.params.id
-  const [qty, setQty] = useState(1)
-  const productDetails = useSelector((state) => state.productDetails)
-  const { loading, error, product } = productDetails
+  const dispatch = useDispatch();
+  const productId = props.match.params.id;
+  const [qty, setQty] = useState(1);
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
 
   useEffect(() => {
-    dispatch(detailsProduct(productId))
-  }, [dispatch, productId])
+    dispatch(detailsProduct(productId));
+  }, [dispatch, productId]);
   const addToCartHandler = () => {
-    props.history.push(`/cart/${productId}?qty=${qty}`)
-  }
+    props.history.push(`/cart/${productId}?qty=${qty}`);
+  };
   return (
     <div>
       {loading ? (
@@ -113,5 +113,5 @@ export default function ProductScreen(props) {
         </div>
       )}
     </div>
-  )
+  );
 }

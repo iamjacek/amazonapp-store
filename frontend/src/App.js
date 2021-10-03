@@ -1,32 +1,32 @@
-import React from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { BrowserRouter, Link, Route } from "react-router-dom"
-import { signout } from "./actions/userActions"
-import AdminRoute from "./components/AdminRoute"
-import PrivateRoute from "./components/PrivateRoute"
-import CartScreen from "./screens/CartScreen"
-import HomeScreen from "./screens/HomeScreen"
-import OrderHistoryScreen from "./screens/OrderHistoryScreen"
-import OrderScreen from "./screens/OrderScreen"
-import PaymentMethodScreen from "./screens/PaymentMethodScreen"
-import PlaceOrderScreen from "./screens/PlaceOrderScreen"
-import ProductListScreen from "./screens/ProductListScreen"
-import ProductScreen from "./screens/ProductScreen"
-import ProfileScreen from "./screens/ProfileScreen"
-import RegisterScreen from "./screens/RegisterScreen"
-import ShippingAddressScreen from "./screens/ShippingAddressScreen"
-import SigninScreen from "./screens/SigninScreen"
-import ProductEditScreen from "./screens/ProductEditScreen"
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { signout } from './actions/userActions';
+import AdminRoute from './components/AdminRoute';
+import PrivateRoute from './components/PrivateRoute';
+import CartScreen from './screens/CartScreen';
+import HomeScreen from './screens/HomeScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import OrderScreen from './screens/OrderScreen';
+import PaymentMethodScreen from './screens/PaymentMethodScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import ProductListScreen from './screens/ProductListScreen';
+import ProductScreen from './screens/ProductScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import ShippingAddressScreen from './screens/ShippingAddressScreen';
+import SigninScreen from './screens/SigninScreen';
+import ProductEditScreen from './screens/ProductEditScreen';
 
 function App() {
-  const cart = useSelector((state) => state.cart)
-  const { cartItems } = cart
-  const userSignin = useSelector((state) => state.userSignin)
-  const { userInfo } = userSignin
-  const dispatch = useDispatch()
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const dispatch = useDispatch();
   const signoutHandler = () => {
-    dispatch(signout())
-  }
+    dispatch(signout());
+  };
   return (
     <BrowserRouter>
       <div className="grid-container">
@@ -46,7 +46,7 @@ function App() {
             {userInfo ? (
               <div className="dropdown">
                 <Link to="#">
-                  {userInfo.name} <i className="fa fa-caret-down"></i>{" "}
+                  {userInfo.name} <i className="fa fa-caret-down"></i>{' '}
                 </Link>
                 <ul className="dropdown-content">
                   <li>
@@ -116,7 +116,7 @@ function App() {
         <footer className="row center">All right reserved</footer>
       </div>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
