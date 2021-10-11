@@ -1,24 +1,25 @@
-import { createStore, compose, applyMiddleware, combineReducers } from "redux"
-import thunk from "redux-thunk"
-import { cartReducer } from "./reducers/cartReducers"
+import { createStore, compose, applyMiddleware, combineReducers } from "redux";
+import thunk from "redux-thunk";
+import { cartReducer } from "./reducers/cartReducers";
 import {
   orderCreateReducer,
   orderDetailsReducer,
   orderMineListReducer,
   orderPayReducer,
-} from "./reducers/orderReducers"
+} from "./reducers/orderReducers";
 import {
   productCreateReducer,
+  productDeleteReducer,
   productDetailsReducer,
   productListReducer,
   productUpdateReducer,
-} from "./reducers/productReducers"
+} from "./reducers/productReducers";
 import {
   userDetailsReducer,
   userRegisterReducer,
   userSigninReducer,
   userUpdateProfileReducer,
-} from "./reducers/userReducers"
+} from "./reducers/userReducers";
 
 const initialState = {
   userSignin: {
@@ -35,7 +36,7 @@ const initialState = {
       : {},
     paymentMethod: "PayPal",
   },
-}
+};
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
@@ -50,12 +51,13 @@ const reducer = combineReducers({
   userUpdateProfile: userUpdateProfileReducer,
   productCreate: productCreateReducer,
   productUpdate: productUpdateReducer,
-})
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+  productDelete: productDeleteReducer,
+});
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   reducer,
   initialState,
   composeEnhancer(applyMiddleware(thunk))
-)
+);
 
-export default store
+export default store;
