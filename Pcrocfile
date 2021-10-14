@@ -1,1 +1,1 @@
-web: node --experimenatl-modules basckend/serve.js
+web: node --experimenatl-modules backend/serve.js
