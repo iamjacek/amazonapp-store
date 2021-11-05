@@ -51,7 +51,7 @@ function App() {
     <BrowserRouter>
       <div className="grid-container">
         <header className="row">
-          <div>
+          <div className="nav-logo-box">
             <button
               type="button"
               className="open-sidebar"
@@ -136,7 +136,9 @@ function App() {
         <aside className={sidebarIsOpen ? "open" : ""}>
           <ul className="categories">
             <li>
-              <strong>Categories</strong>
+              <div className="sidebar-header">
+                <strong>Categories</strong>
+              </div>
               <button
                 onClick={() => setSidebarIsOpen(false)}
                 className="close-sidebar"
@@ -183,6 +185,11 @@ function App() {
           />
           <Route
             path="/search/category/:category/name/:name"
+            component={SearchScreen}
+            exact
+          />
+          <Route
+            path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order"
             component={SearchScreen}
             exact
           />
