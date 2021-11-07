@@ -27,6 +27,7 @@ import SearchScreen from "./screens/SearchScreen";
 import { listProductsCategories } from "./actions/productActions";
 import LoadingBox from "./components/LoadingBox";
 import MessageBox from "./components/MessageBox";
+import MapScreen from "./screens/MapScreen";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -194,6 +195,7 @@ function App() {
             exact
           />
           <PrivateRoute path="/profile" component={ProfileScreen} />
+          <PrivateRoute path="/map" component={MapScreen} />
           <AdminRoute path="/productlist" component={ProductListScreen} exact />
           <AdminRoute path="/orderlist" component={OrderListScreen} exact />
           <AdminRoute path="/userlist" component={UserListScreen} />
