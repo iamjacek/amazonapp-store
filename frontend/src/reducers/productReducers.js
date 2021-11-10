@@ -1,3 +1,5 @@
+import { assertCompletionStatement } from "../../../../.cache/typescript/4.4/node_modules/@babel/types/lib/index";
+
 const {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -34,7 +36,12 @@ export const productListReducer = (
     case PRODUCT_LIST_REQUEST:
       return { loading: true };
     case PRODUCT_LIST_SUCCESS:
-      return { loading: false, products: action.payload };
+      return {
+        loading: false,
+        products: action.payload.products,
+        pages: action.payload.pages,
+        page: action.payload.page,
+      };
     case PRODUCT_LIST_FAIL:
       return { loading: false, error: action.payload };
     default:
