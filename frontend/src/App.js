@@ -231,6 +231,11 @@ function App() {
           <AdminRoute path="/userlist" component={UserListScreen} />
           <AdminRoute path="/user/:id/edit" component={UserEditScreen} />
           <Route path="/" component={HomeScreen} exact />
+          <Route
+            path="/home/pageNumber/:pageNumber"
+            component={HomeScreen}
+            exact
+          />
         </main>
         <footer className="row center">All right reserved</footer>
       </div>

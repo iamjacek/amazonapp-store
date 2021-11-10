@@ -8,8 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productActions";
 import { listTopSellers } from "../actions/userActions";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router";
 
 export default function HomeScreen() {
+  const { pageNumber = 1 } = useParams();
+
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
@@ -22,9 +25,9 @@ export default function HomeScreen() {
   } = userTopSellersList;
 
   useEffect(() => {
-    dispatch(listProducts({}));
+    dispatch(listProducts({ pageNumber }));
     dispatch(listTopSellers());
-  }, [dispatch]);
+  }, [dispatch, pageNumber]);
   return (
     <div>
       <h2>Top Sellers</h2>
@@ -67,7 +70,7 @@ export default function HomeScreen() {
           <Link
             className={x + 1 === page ? "active" : ""}
             key={x + 1}
-            to={`/productlist/pageNumber/${x + 1}`}
+            to={`/home/pageNumber/${x + 1}`}
           >
             {x + 1}
           </Link>
