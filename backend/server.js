@@ -47,10 +47,13 @@ app.use((err, req, res, next) => {
 const port = process.env.PORT || 5000;
 
 const httpServer = http.Server(app);
-const io = new Server(httpServer);
+const io = new Server(httpServer, {
+  cors: { origin: "*" },
+});
 const users = [];
 
 io.on("connection", (socket) => {
+  console.log("connection", socket.id);
   socket.on("disconnect", () => {
     const user = users.find((x) => x.socketId === socket.id);
     if (user) {
@@ -82,7 +85,7 @@ io.on("connection", (socket) => {
       io.to(admin.socketId).emit("updateUser", updatedUser);
     }
     if (updatedUser.isAdmin) {
-      io.to(updatedUser.socketId).emmit("listUsers", users);
+      io.to(updatedUser.socketId).emit("listUsers", users);
     }
   });
 

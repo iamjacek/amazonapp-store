@@ -30,6 +30,7 @@ import MessageBox from "./components/MessageBox";
 import MapScreen from "./screens/MapScreen";
 import DashboardScreen from "./screens/DashboardScreen";
 import SupportScreen from "./screens/SupportScreen";
+import ChatBox from "./components/ChatBox";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -244,7 +245,10 @@ function App() {
             exact
           />
         </main>
-        <footer className="row center">All right reserved</footer>
+        <footer className="row center">
+          {userInfo && !userInfo.isAdmin && <ChatBox userInfo={userInfo} />}
+          <div>All right reserved</div>{" "}
+        </footer>
       </div>
     </BrowserRouter>
   );
